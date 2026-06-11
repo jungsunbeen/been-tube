@@ -1,0 +1,7 @@
+# Audio files
+audio/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
