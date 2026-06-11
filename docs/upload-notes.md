@@ -2,7 +2,7 @@
 
 ## 파일
 - 영상: `~/lofi/lofi-1hour.mp4` (1920x1080, H.264 + AAC 192k, 정확히 60:00)
-- 오디오 원본: `~/lofi/audio/output/mix-1hour.wav` / 커버: `~/lofi/docs/cover.jpg` (썸네일로 그대로 사용 가능)
+- 오디오 원본: `~/lofi/audio/output/mix-1hour.wav`
 
 ## 제목(안)
 - Paper Sun & Paper Moon — 1 Hour Lofi Mix for Study, Sleep & Chill
@@ -24,6 +24,5 @@ lofi mix, relaxing music, 공부 음악, 집중 음악
 
 ## 체크리스트
 - [ ] YouTube Studio에서 수동 업로드 (시청자용 아님/아동용 아님 설정 확인)
-- [ ] 썸네일로 cover.jpg 업로드
 - [ ] ⚠️ Suno 무료 플랜은 상업적 이용(수익화) 불가 — 수익화하려면 Suno 유료 플랜 필요.
       무료 플랜이면 영상 수익 창출을 켜지 말 것. 설명에 "Made with Suno" 표기 권장.
