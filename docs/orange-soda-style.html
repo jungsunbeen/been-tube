@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>tangerine dusk. — lofi generator</title>
+<style>
+  body {
+    margin: 0; height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 24px;
+    background: linear-gradient(160deg, #2b1d2e 0%, #4a2c3d 50%, #c96f4a 130%);
+    font-family: 'Courier New', monospace; color: #f3e0d0;
+  }
+  h1 { font-weight: normal; letter-spacing: 4px; margin: 0; }
+  p  { opacity: .6; margin: 0; font-size: 13px; }
+  button {
+    background: none; border: 1px solid #f3e0d0; color: #f3e0d0;
+    padding: 12px 32px; font-family: inherit; font-size: 15px;
+    letter-spacing: 2px; cursor: pointer; border-radius: 2px;
+  }
+  button:hover { background: rgba(243,224,208,.12); }
+  #status { font-size: 12px; opacity: .5; min-height: 16px; }
+</style>
+</head>
+<body>
+<h1>tangerine dusk.</h1>
+<p>generative lofi — 실제 악기 샘플로 연주, 끄기 전까지 계속 변주</p>
+<button id="toggle">play</button>
+<button id="render">download wav (2 min)</button>
+<div id="status"></div>
+
+<!-- WebAudioFont: 실제 녹음 기반 악기 샘플 (FluidR3 GM) -->
+<script src="https://surikov.github.io/webaudiofont/npm/dist/WebAudioFontPlayer.js"></script>
+<script src="https://surikov.github.io/webaudiofontdata/sound/0040_FluidR3_GM_sf2_file.js"></script>  <!-- Electric Piano (Rhodes) -->
+<script src="https://surikov.github.io/webaudiofontdata/sound/0320_FluidR3_GM_sf2_file.js"></script>  <!-- Acoustic Bass -->
+<script src="https://surikov.github.io/webaudiofontdata/sound/12835_0_FluidR3_GM_sf2_file.js"></script><!-- Kick -->
+<script src="https://surikov.github.io/webaudiofontdata/sound/12838_0_FluidR3_GM_sf2_file.js"></script><!-- Snare -->
+<script src="https://surikov.github.io/webaudiofontdata/sound/12842_0_FluidR3_GM_sf2_file.js"></script><!-- Closed Hat -->
+<script src="https://surikov.github.io/webaudiofontdata/sound/12846_0_FluidR3_GM_sf2_file.js"></script><!-- Open Hat -->
+
+<script>
+// ---------- 음악 데이터 ----------
+const BPM = 83; // orange soda. 실측 템포
+const BEAT = 60 / BPM;
+const BAR = BEAT * 4;
+// orange soda. 오디오 분석 결과 진행: Dmaj9 - E7 - F#m7 - Bm7 (A장조 IV-V-vi-ii)
+const CHORDS = [
+  [50, 54, 57, 61, 64],   // Dmaj9
+  [52, 56, 59, 62],       // E7
+  [54, 57, 61, 64],       // F#m7
+  [47, 50, 54, 57],       // Bm7
+];
+const BASS = [38, 40, 42, 35];  // D E F# B
+const SCALE = [61, 62, 64, 66, 68, 69, 71, 73, 74, 76]; // A major 위쪽
+
+// 고정 테마 (4마디 프레이즈) — 곡 전체에서 반복되며 살짝씩 변주
+const THEME = [
+  { p: 0.5,  n: 66, d: 1.0 },  // Dmaj9
+  { p: 2,    n: 69, d: 0.75 },
+  { p: 3,    n: 73, d: 1.5 },
+  { p: 5,    n: 71, d: 0.75 }, // E7
+  { p: 6.5,  n: 68, d: 1.5 },
+  { p: 8.5,  n: 69, d: 0.75 }, // F#m7
+  { p: 10,   n: 76, d: 1.0 },
+  { p: 11,   n: 73, d: 1.5 },
+  { p: 13,   n: 66, d: 0.75 }, // Bm7
+  { p: 14,   n: 69, d: 0.75 },
+  { p: 14.75, n: 74, d: 2.0 },
+];
+
+// ---------- 악기 (WebAudioFont 샘플) ----------
+const player = new WebAudioFontPlayer();
+const EP   = _tone_0040_FluidR3_GM_sf2_file;   // 코드 반주: 일렉피아노
+const GTR  = _tone_0040_FluidR3_GM_sf2_file;   // 멜로디: 일렉피아노 (원곡 실측 — 어택 93ms, 건반 계열)
+const BASSI = _tone_0320_FluidR3_GM_sf2_file;  // 베이스: 어쿠스틱 베이스
+const KICK = _drum_35_0_FluidR3_GM_sf2_file;
+const SNARE = _drum_38_0_FluidR3_GM_sf2_file;
+const CHH = _drum_42_0_FluidR3_GM_sf2_file;
+const OHH = _drum_46_0_FluidR3_GM_sf2_file;
+const ALL_PRESETS = [
+  ['_tone_0040_FluidR3_GM_sf2_file', EP],
+  ['_tone_0320_FluidR3_GM_sf2_file', BASSI], ['_drum_35_0_FluidR3_GM_sf2_file', KICK],
+  ['_drum_38_0_FluidR3_GM_sf2_file', SNARE], ['_drum_42_0_FluidR3_GM_sf2_file', CHH],
+  ['_drum_46_0_FluidR3_GM_sf2_file', OHH],
+];
+
+function loadAll(ctx) {
+  return new Promise(resolve => {
+    for (const [name] of ALL_PRESETS) player.loader.decodeAfterLoading(ctx, name);
+    player.loader.waitLoad(resolve);
+  });
+}
+
+const note = (ctx, dest, preset, t, midi, dur, vol) =>
+  player.queueWaveTable(ctx, dest, preset, t, midi, dur, vol);
+
+// 빈티지 크래클 (LP 노이즈) — 이건 합성이 더 자연스러움
+function noiseBuf(ctx) {
+  const b = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
+  const d = b.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  return b;
+}
+function crackle(ctx, dest, nbuf, t0, dur) {
+  const s = ctx.createBufferSource(); s.buffer = nbuf; s.loop = true;
+  const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 3000;
+  const g = ctx.createGain(); g.gain.value = 0.012;
+  s.connect(hp); hp.connect(g); g.connect(ctx.destination); // 마스터 로우패스 우회 (크래클은 고역이 생명)
+  s.start(t0); s.stop(t0 + dur);
+}
+
+// 마스터 체인: 로파이 톤 (고역 깎기 + 가벼운 컴프레션)
+function masterChain(ctx) {
+  const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1500; // 원곡 실측: 에너지 대부분이 저역
+  const comp = ctx.createDynamicsCompressor();
+  comp.threshold.value = -16; comp.ratio.value = 3;
+  const out = ctx.createGain(); out.gain.value = 0.95;
+  lp.connect(comp); comp.connect(out); out.connect(ctx.destination);
+  return lp;
+}
+
+// ---------- 시퀀서 ----------
+function rng(seed) { return () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff; }
+
+function scheduleBar(ctx, dest, nbuf, barIdx, t0, rand) {
+  const ci = barIdx % 4;
+  const swing = BEAT * 0.08;
+
+  // 코드 (일렉피아노, 살짝 아르페지오처럼 어긋나게)
+  CHORDS[ci].forEach((m, i) =>
+    note(ctx, dest, EP, t0 + i * 0.012 + rand() * 0.01, m, BAR * 0.95, 0.12));
+  if (rand() < 0.5)
+    CHORDS[ci].forEach((m, i) =>
+      note(ctx, dest, EP, t0 + BEAT * 2.5 + i * 0.012, m, BAR * 0.45, 0.10));
+
+  // 베이스 (어쿠스틱 베이스)
+  note(ctx, dest, BASSI, t0, BASS[ci], BEAT * 1.9, 0.65); // 원곡: 저역이 에너지의 80%
+  if (rand() < 0.6) note(ctx, dest, BASSI, t0 + BEAT * 2.5, BASS[ci], BEAT * 1.3, 0.48);
+  if (rand() < 0.25) note(ctx, dest, BASSI, t0 + BEAT * 3.5, BASS[(ci + 1) % 4] + 7, BEAT * 0.4, 0.3); // 다음 코드로 가는 경과음
+
+  // 드럼: 고정 붐뱁 패턴 (그루브가 세션마다 흔들리지 않게 랜덤 제거)
+  note(ctx, dest, KICK, t0, 35, 0.5, 0.5);
+  note(ctx, dest, KICK, t0 + BEAT * 2.5, 35, 0.5, 0.32);
+  note(ctx, dest, SNARE, t0 + BEAT, 38, 0.5, 0.18);
+  note(ctx, dest, SNARE, t0 + BEAT * 3, 38, 0.5, 0.18);
+  for (let i = 0; i < 8; i++) {
+    const sw = i % 2 === 1 ? swing : 0;
+    note(ctx, dest, CHH, t0 + BEAT * 0.5 * i + sw, 42, 0.3, i % 2 === 0 ? 0.06 : 0.04); // 원곡: 햇이 거의 안 들림
+  }
+  if (barIdx % 4 === 3) note(ctx, dest, OHH, t0 + BEAT * 3.5 + swing, 46, 0.4, 0.06); // 4마디마다 턴어라운드
+
+  // 멜로디 (재즈 기타): 고정 테마 변주, 4프레이즈마다 쉬어가기
+  const restPhrase = Math.floor(barIdx / 4) % 4 === 3;
+  const skipProb = restPhrase ? 0.55 : 0.10;
+  const start = (barIdx % 4) * 4, end = start + 4;
+  for (const ev of THEME) {
+    if (ev.p < start || ev.p >= end) continue;
+    if (rand() < skipProb) continue;
+    let n = ev.n;
+    const v = rand();
+    if (v < 0.08) n += 12;
+    else if (v < 0.18) {
+      const i = SCALE.indexOf(ev.n);
+      if (i > 0 && i < SCALE.length - 1) n = SCALE[i + (rand() < 0.5 ? 1 : -1)];
+    }
+    const jitter = (rand() - 0.5) * 0.04;
+    note(ctx, dest, GTR,
+      t0 + (ev.p - start) * BEAT + (ev.p % 1 !== 0 ? swing : 0) + jitter,
+      n, ev.d * BEAT * 1.2, 0.4 + rand() * 0.1); // 중간 음역 유지 (높은 음은 어색)
+  }
+}
+
+// ---------- 실시간 재생 ----------
+let ctx = null, playing = false, nextBar = 0, barIdx = 0, timer = null;
+const status = m => document.getElementById('status').textContent = m;
+
+document.getElementById('toggle').onclick = async () => {
+  if (!playing) {
+    if (!ctx) {
+      ctx = new AudioContext();
+      status('loading instruments…');
+      await loadAll(ctx);
+    }
+    ctx.resume();
+    const dest = masterChain(ctx);
+    crackle(ctx, dest, noiseBuf(ctx), ctx.currentTime, 36000);
+    const rand = rng((performance.now() | 0) ^ 0x5eed);
+    nextBar = ctx.currentTime + 0.15; barIdx = 0;
+    timer = setInterval(() => {
+      while (nextBar < ctx.currentTime + 2 * BAR) {
+        scheduleBar(ctx, dest, null, barIdx++, nextBar, rand);
+        nextBar += BAR;
+      }
+    }, 500);
+    playing = true;
+    document.getElementById('toggle').textContent = 'stop';
+    status('playing…');
+  } else {
+    clearInterval(timer);
+    player.cancelQueue(ctx);
+    ctx.close(); ctx = null; playing = false;
+    document.getElementById('toggle').textContent = 'play';
+    status('');
+  }
+};
+
+// ---------- 오프라인 렌더 → WAV ----------
+document.getElementById('render').onclick = async () => {
+  const DUR = 120;
+  const sr = 44100;
+  const off = new OfflineAudioContext(2, sr * DUR, sr);
+  status('loading instruments…');
+  if (!ctx) ctx = new AudioContext();   // 샘플 디코딩용
+  await loadAll(ctx);
+  status('rendering…');
+  const dest = masterChain(off);
+  crackle(off, dest, noiseBuf(off), 0, DUR);
+  const rand = rng(20260611);
+  let t = 0.1, i = 0;
+  while (t + BAR < DUR) { scheduleBar(off, dest, null, i++, t, rand); t += BAR; }
+  const buf = await off.startRendering();
+
+  const ch = [buf.getChannelData(0), buf.getChannelData(1)];
+  const len = buf.length, data = new DataView(new ArrayBuffer(44 + len * 4));
+  const wstr = (o, s) => { for (let i = 0; i < s.length; i++) data.setUint8(o + i, s.charCodeAt(i)); };
+  wstr(0, 'RIFF'); data.setUint32(4, 36 + len * 4, true); wstr(8, 'WAVE');
+  wstr(12, 'fmt '); data.setUint32(16, 16, true); data.setUint16(20, 1, true);
+  data.setUint16(22, 2, true); data.setUint32(24, sr, true);
+  data.setUint32(28, sr * 4, true); data.setUint16(32, 4, true); data.setUint16(34, 16, true);
+  wstr(36, 'data'); data.setUint32(40, len * 4, true);
+  for (let i = 0, o = 44; i < len; i++)
+    for (let c = 0; c < 2; c++, o += 2)
+      data.setInt16(o, Math.max(-1, Math.min(1, ch[c][i])) * 0x7fff, true);
+
+  const url = URL.createObjectURL(new Blob([data], { type: 'audio/wav' }));
+  const a = document.createElement('a');
+  a.href = url; a.download = 'tangerine-dusk.wav'; a.click();
+  status('saved: tangerine-dusk.wav');
+};
+</script>
+</body>
+</html>
