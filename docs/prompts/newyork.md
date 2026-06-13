@@ -24,12 +24,12 @@
 | 6 | After Hours | **Cm** | sparse drums | |
 | 7 | Empty Bar, Chairs Up | Eb | **no drums** | 숨 고르기 |
 | 8 | Fifth Floor Walk-Up | Eb | 코드 중심 | |
-| 9 | Bridge Lights | **Cm** | 색소폰 melody-forward | |
+| 9 | Bridge Lights | **Cm** | 색소폰 melody-forward | |ㅇ
 | 10 | Closing Time on Bleecker | Eb | 가장 풍성 | 클로저 |
 
 ---
 
-## 1. Last Set at the Blue Door — Eb (오프너)
+## 1. Last Set at the Blue Door — Eb (오프너) >> brownstone windows
 ```
 chill lofi jazz instrumental, 88 bpm, in E flat major, warm muffled electric piano chords,
 soft mellow keys melody, deep round bass, dusty boom bap drums with quiet hats,
@@ -61,7 +61,7 @@ vinyl crackle, heavy lowpass filter, jazzy seventh chords with gentle 2-5-1 turn
 late night corner solo under neon mood, no vocals
 ```
 
-## 5. Taxi Lights Uptown — Cm (음영 아치)
+## 5. Taxi Lights Uptown — Cm (음영 아치) >> avenue after rain
 ```
 chill lofi jazz instrumental, 88 bpm, in C minor, warm muffled electric piano chords,
 soft mellow keys melody, deep round bass, dusty boom bap drums with quiet hats,
@@ -93,7 +93,7 @@ vinyl crackle, heavy lowpass filter, jazzy seventh chords with gentle 2-5-1 turn
 small apartment glowing above the street mood, no vocals
 ```
 
-## 9. Bridge Lights — Cm (색소폰)
+## 9. Bridge Lights — Cm (색소폰) >> dark river lofi
 ```
 chill lofi jazz instrumental, 88 bpm, in C minor, warm muffled electric piano chords,
 soft smoky saxophone melody, deep round bass, dusty boom bap drums with quiet hats,
@@ -101,7 +101,7 @@ vinyl crackle, heavy lowpass filter, jazzy seventh chords with gentle 2-5-1 turn
 bridge cables glittering over the dark river mood, no vocals
 ```
 
-## 10. Closing Time on Bleecker — Eb (클로저)
+## 10. Closing Time on Bleecker — Eb (클로저) >> last train on elm
 ```
 chill lofi jazz instrumental, 88 bpm, in E flat major, warm muffled electric piano chords,
 soft mellow keys melody, gentle smoky saxophone phrases, deep round bass,
