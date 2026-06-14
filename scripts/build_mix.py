@@ -36,6 +36,18 @@ PROJECTS = {
         "Vinyl Snowfall (1).mp3",    # A#장조 76  와인드다운
         "Starry Loops.mp3",          # A장조  99  피날레
     ],
+    "prague": [
+        "Snowy Window Loop_1.mp3",      # C장조  117 오프너
+        "Snow on Cobblestones.mp3",     # G장조  117 흐름
+        "Snow in the Square.mp3",       # E단조  117 단조 색채①
+        "Snow Bridge Dust.mp3",         # G장조  60  템포 다운
+        "Castle Above Rooftops.mp3",    # A단조  123 중심곡(최장·단조)
+        "Snow in the Square_1.mp3",     # G장조  89  회복·리프트
+        "Snow Bridge Dust_1.mp3",       # A단조  123 단조 색채②
+        "Snowy Window Loop.mp3",        # G장조  58  슬로우 와인드다운
+        "Snowy Tram Stop_1.mp3",        # C장조  117 밝게 환기
+        "Warm Window Drift.mp3",        # G장조  76  피날레(따뜻한 창가)
+    ],
 }
 
 

@@ -28,7 +28,7 @@
 
 ---
 
-## 1. Neon Afterglow — Em (오프너)
+## 1. Neon Afterglow — Em (오프너) >> wet neon key
 ```
 chill lofi jazz instrumental, 84 bpm, in E minor, warm muffled electric piano chords,
 soft mellow keys melody, deep round bass, dusty boom bap drums with quiet hats,
@@ -44,7 +44,7 @@ vinyl crackle, heavy lowpass filter, jazzy seventh chords with gentle 2-5-1 turn
 empty crossing under glowing billboards mood, no vocals
 ```
 
-## 3. Vending Machine Glow — Em (sparse)
+## 3. Vending Machine Glow — Em (sparse) >> alley vending glow
 ```
 chill lofi jazz instrumental, 84 bpm, in E minor, warm muffled electric piano chords,
 soft mellow keys melody, deep round bass, sparse dusty boom bap drums with quiet hats,
@@ -52,7 +52,7 @@ vinyl crackle, heavy lowpass filter, jazzy seventh chords with gentle 2-5-1 turn
 lone vending machine light in a dark alley mood, no vocals
 ```
 
-## 4. Wet Asphalt Reflections — Em (신스 패드)
+## 4. Wet Asphalt Reflections — Em (신스 패드) >> wet asphalt keys
 ```
 chill lofi jazz instrumental, 84 bpm, in E minor, warm muffled electric piano chords,
 airy synth pads, soft mellow keys melody, deep round bass, dusty boom bap drums
@@ -60,7 +60,7 @@ with quiet hats, vinyl crackle, heavy lowpass filter, jazzy seventh chords with
 gentle 2-5-1 turnarounds, city colors smeared across wet asphalt mood, no vocals
 ```
 
-## 5. Konbini Light — G장조 (밝기 아치)
+## 5. Konbini Light — G장조 (밝기 아치) >> coner glow loop
 ```
 chill lofi jazz instrumental, 84 bpm, in G major, warm muffled electric piano chords,
 soft mellow keys melody, deep round bass, dusty boom bap drums with quiet hats,
@@ -92,7 +92,7 @@ vinyl crackle, heavy lowpass filter, jazzy seventh chords with gentle 2-5-1 turn
 rooftop view of endless city lights mood, no vocals
 ```
 
-## 9. Tokyo Tower Distance — G장조 (신스 패드)
+## 9. Tokyo Tower Distance — G장조 (신스 패드) 
 ```
 chill lofi jazz instrumental, 84 bpm, in G major, warm muffled electric piano chords,
 airy synth pads, soft mellow keys melody, deep round bass, dusty boom bap drums
@@ -100,7 +100,7 @@ with quiet hats, vinyl crackle, heavy lowpass filter, jazzy seventh chords with
 gentle 2-5-1 turnarounds, distant tower glowing through night haze mood, no vocals
 ```
 
-## 10. First Light Skyline — Em (클로저)
+## 10. First Light Skyline — Em (클로저) >> pale dawn turnaround 
 ```
 chill lofi jazz instrumental, 84 bpm, in E minor, warm muffled electric piano chords,
 soft mellow keys melody, airy synth pads, deep round bass,
