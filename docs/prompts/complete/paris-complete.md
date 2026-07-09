@@ -27,19 +27,19 @@
 
 | # | 시작 | 표시명(YouTube) | 소스 파일 | 키 | BPM* | 역할 |
 |---|---|---|---|---|---|---|
-| 1 | 00:00 | River Lamplight | River Lamplight | F장조 | 72 | **오프너(최장·클라리넷)** |
-| 2 | 03:37 | Montmartre After Midnight | Montmartre After Midnight_1 | A#(Bb)장조 | 72 | 밝은 Bb |
-| 3 | 06:11 | Attic Rooftops | Attic Rooftops_1 | F장조 | 72 | 지붕 위 다락 |
-| 4 | 09:46 | Last Train Home | Last Train Home | A단조 | 72 | **단조 색채 ① · 중심** |
-| 5 | 12:51 | Montmartre After Midnight (Reprise) | Montmartre After Midnight | A#(Bb)장조 | 72 | 밝게 회복 |
-| 6 | 15:31 | River Lamplight (Reprise) | River Lamplight_1 | F장조 | 72 | 강가 재방문 |
-| 7 | 17:46 | Last Train Home (Reprise) | Last Train Home_1 | D단조 | 72 | 단조 색채 ② |
-| 8 | 20:01 | Attic Rooftops (Reprise) | Attic Rooftops | A#(Bb)장조 | 72 | 클로저(밝은 Bb) |
+| 1 | 00:00 | Lamplight | River Lamplight | F장조 | 72 | **오프너(최장·클라리넷)** |
+| 2 | 03:37 | Montmartre | Montmartre After Midnight_1 | A#(Bb)장조 | 72 | 밝은 Bb |
+| 3 | 06:11 | Rooftops | Attic Rooftops_1 | F장조 | 72 | 지붕 위 다락 |
+| 4 | 09:46 | Last Train | Last Train Home | A단조 | 72 | **단조 색채 ① · 중심** |
+| 5 | 12:51 | Montmartre II | Montmartre After Midnight | A#(Bb)장조 | 72 | 밝게 회복 |
+| 6 | 15:31 | Lamplight II | River Lamplight_1 | F장조 | 72 | 강가 재방문 |
+| 7 | 17:46 | Last Train II | Last Train Home_1 | D단조 | 72 | 단조 색채 ② |
+| 8 | 20:01 | Rooftops II | Attic Rooftops | A#(Bb)장조 | 72 | 클로저(밝은 Bb) |
 | — | 22:40 | — 세트 반복(×2) — | | | | |
 
 \* 전곡 Suno에서 72 BPM 지정. 키 추정은 librosa 근사치(상대 참고용).
 키 배열 `F·Bb·F·Am·Bb·F·Dm·Bb` → 인접 같은키 0건.
-같은 곡의 두 테이크가 한 세트 안에 나오므로 뒤쪽은 (Reprise)로 표기.
+같은 곡의 두 테이크가 한 세트 안에 나오므로 뒤쪽은 `II`로 표기.
 소스 파일명은 `scripts/build_mix.py`의 `PROJECTS["paris"]` 기준.
 
 ## 유튜브 설명란 (복붙용)
@@ -48,14 +48,14 @@
 Midnight in Paris from a window over the Seine — warm lofi jazz for late nights, studying, and slow evenings. 🌙
 
 Track list:
-00:00 River Lamplight
-03:37 Montmartre After Midnight
-06:11 Attic Rooftops
-09:46 Last Train Home
-12:51 Montmartre After Midnight (Reprise)
-15:31 River Lamplight (Reprise)
-17:46 Last Train Home (Reprise)
-20:01 Attic Rooftops (Reprise)
+00:00 Lamplight
+03:37 Montmartre
+06:11 Rooftops
+09:46 Last Train
+12:51 Montmartre II
+15:31 Lamplight II
+17:46 Last Train II
+20:01 Rooftops II
 22:40 — set repeats —
 
 Music generated with Suno AI.
