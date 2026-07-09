@@ -129,7 +129,7 @@ gentle vinyl crackle, heavy lowpass filter, slow jazzy chord movement,
 | New York_ 심야 재즈바 | Jazzhop | Eb+Cm | 88 | 색소폰 | 준비됨 |
 | Prague_ 눈 | Jazzhop | C+Am | 60 | 첼레스타 | 준비됨 |
 | Lisbon_ 오후 트램 | Jazzhop | Am+C | 76 | 나일론 기타 | 준비됨 |
-| **Berlin_ 새벽 클럽** | **Deep house** | Am+C | 122 | plucked synth | 준비됨 (prompts/berlin.md) |
+| **Berlin_ 새벽 클럽** | **Deep house** | Am+C | 122 | plucked synth | **완성** (berlin-complete.md) |
 | **NYC_ 옥상 심야** | **Deep house** | Em | 120 | rhodes stab | 신규 후보 |
 | **Amsterdam_ 운하 야간** | **Deep house** | Dm | 120 | sax pad | 신규 후보 |
 | **Ibiza_ 일몰** | **Organic house** | C+Am | 112 | marimba | 신규 후보 |

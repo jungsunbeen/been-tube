@@ -124,11 +124,24 @@ rclone copy "audio/output/{city}-1hour.wav" "gdrive:{city}" \
 큰 wav(수백 MB)는 업로드가 길어질 수 있으니 백그라운드 실행 후 완료 알림에서 검증한다.
 검증: 업로드 후 `rclone lsl ... | grep {city}` 의 바이트 크기를 로컬 `stat -f %z` 와 대조해 일치 확인.
 
+**공유 링크 + 로컬 정리 (컴퓨터 용량 절약):**
+```bash
+rclone link "gdrive:{city}/{city}-1hour.mp4" --drive-root-folder-id 1FTLjGp59t6ylO2gSS12eHmatJBUzH3-R
+rclone link "gdrive:{city}/{city}-1hour.wav" --drive-root-folder-id 1FTLjGp59t6ylO2gSS12eHmatJBUzH3-R
+```
+발급한 링크를 사용자에게 제시하고(완료 문서에도 기록), **사용자가 링크를 확인·승인하면**
+로컬 `audio/output/{city}-1hour.wav`/`.mp4`를 삭제한다.
+- ⚠️ 삭제는 반드시 **바이트 검증 통과 + 사용자 확인** 두 조건을 모두 충족한 뒤에만.
+- ⚠️ 유튜브 업로드는 로컬 mp4가 필요하다 — 유튜브 업로드 전이면 wav만 지우고,
+  mp4는 유튜브 업로드를 마친 뒤 지우도록 권한다.
+
 ### ⑧ 완료 문서
 `docs/prompts/complete/{city}-complete.md`를 생성한다. `florence-complete.md`를 템플릿으로:
 - 산출물 경로 표(mp4/wav/썸네일/원본이미지/빌드 명령)
 - 최종 트랙 리스트(⑤ 타임스탬프 + 곡별 키/BPM)
 - 유튜브 설명란(복붙용: 한 줄 무드 + Track list 타임스탬프 + "Music generated with Suno AI." + 해시태그)
+  - Track list 표시명은 소스 파일명 재활용이 아니라 **간단한 새 단어로 새로 짓는다**
+    (한두 단어, 테이크 구분 `II`/`(2)` 없이 전부 서로 다른 이름)
 - 업로드 체크리스트(제목 형식, 썸네일, **수익 창출 OFF**=Suno 무료 플랜은 비상업적만, "아동용 아님" 설정)
 - 미사용 예비 곡 목록
 

@@ -46,6 +46,16 @@ PROJECTS = {
         "Last Train Home_1.mp3",           # D단조   72  단조 색채②
         "Attic Rooftops.mp3",              # A#장조  72  클로저(밝은 Bb)
     ],
+    "berlin": [
+        "Basement Drift.mp3",            # D장조  123 오프너(밝게 진입)
+        "Smoke Through Strobe_1.mp3",    # A단조  123 단조 색채(클럽 심연)
+        "Corridor After Midnight_1.mp3", # C장조  123 리프트
+        "Concrete Dawn Loop_1.mp3",      # D장조  123 중심곡(최장 6:21)
+        "Smoke Through Strobe.mp3",      # C장조  123 중반 환기
+        "Brick Bridge Sunrise_1.mp3",    # F장조  123 저킥 브레이크다운(숨 고르기)
+        "Basement Drift_1.mp3",          # C장조  123 짧은 밝은 리프트
+        "Kreuzberg Dawn Wires_1.mp3",    # D장조  123 클로저(rhodes 풍성)
+    ],
     "prague": [
         "Snowy Window Loop_1.mp3",      # C장조  117 오프너
         "Snow on Cobblestones.mp3",     # G장조  117 흐름
