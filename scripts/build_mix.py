@@ -36,6 +36,16 @@ PROJECTS = {
         "Vinyl Snowfall (1).mp3",    # A#장조 76  와인드다운
         "Starry Loops.mp3",          # A장조  99  피날레
     ],
+    "paris": [
+        "River Lamplight.mp3",             # F장조   72  오프너(최장·클라리넷)
+        "Montmartre After Midnight_1.mp3", # A#장조  72  밝은 Bb
+        "Attic Rooftops_1.mp3",            # F장조   72
+        "Last Train Home.mp3",             # A단조   72  단조 색채①·중심
+        "Montmartre After Midnight.mp3",   # A#장조  72
+        "River Lamplight_1.mp3",           # F장조   72
+        "Last Train Home_1.mp3",           # D단조   72  단조 색채②
+        "Attic Rooftops.mp3",              # A#장조  72  클로저(밝은 Bb)
+    ],
     "prague": [
         "Snowy Window Loop_1.mp3",      # C장조  117 오프너
         "Snow on Cobblestones.mp3",     # G장조  117 흐름
